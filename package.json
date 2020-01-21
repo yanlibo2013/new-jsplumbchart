@@ -1,15 +1,28 @@
 {
   "name": "new-jsplumbchart",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "demo": "vue-cli-service serve src/App.vue",
+    "build:npm": "vue-cli-service build --target lib --name jsplumbchart src/jsplumbchart/index.vue"
   },
+  "main": "dist/jsplumbchart.umd.js",
+  "unpkg": "dist/jsplumbchart.umd.min.js",
   "dependencies": {
     "core-js": "^3.4.4",
-    "vue": "^2.6.10"
+    "jsplumb": "^2.12.8",
+    "lodash": "^4.17.15",
+    "panzoom": "^8.7.5",
+    "vue": "^2.6.10",
+    "vue-drag-drop": "^1.1.4",
+    "vuex": "^3.1.2",
+    "wheel": "^1.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.0",
@@ -18,6 +31,8 @@
     "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {
