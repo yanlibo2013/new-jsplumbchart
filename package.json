@@ -10,7 +10,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "demo": "vue-cli-service serve src/App.vue",
-    "build:npm": "vue-cli-service build --target lib --name jsplumbchart src/jsplumbchart/index.vue"
+    "build:npm": "vue-cli-service build --target lib --name jsplumbchart src/jsplumbchart/jsplumbchart.js"
   },
   "main": "dist/jsplumbchart.umd.js",
   "unpkg": "dist/jsplumbchart.umd.min.js",
