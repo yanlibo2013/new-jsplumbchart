@@ -129,7 +129,7 @@ export default {
               return;
             }
 
-            if(!this.data.matrix){
+            if (!this.data.matrix) {
               return;
             }
 
