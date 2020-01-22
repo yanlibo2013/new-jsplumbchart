@@ -34,7 +34,6 @@ import {
 } from "./lib/flowchart";
 
 export default {
-  name:"jsplumb-chart",
   watch: {
     data(val) {
       this.stepData = this.data.steps;
@@ -192,7 +191,7 @@ export default {
       //   y: parseInt(matrix[5])
       // };
 
-      fn(JSON.parse(data));
+      fn(data);
     },
     setCavansMatrix(data) {
       let source = _.filter(data, val => {
