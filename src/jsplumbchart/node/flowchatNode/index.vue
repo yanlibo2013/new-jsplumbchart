@@ -136,8 +136,8 @@ export default {
     position: absolute;
     margin-right: 15px;
     margin-bottom: 20px;
-    // cursor: move;
     float: left;
+    cursor:pointer;
   }
 
   .designIconBig i {
@@ -264,6 +264,12 @@ export default {
     background: #4586f3;
     right: -2px;
     top: 0;
+  }
+
+  .jtk-endpoint {
+    // z-index: 12;
+    // opacity: 0.8;
+    cursor: default;
   }
 }
 </style>

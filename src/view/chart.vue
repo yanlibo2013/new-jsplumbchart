@@ -63,7 +63,8 @@ export default {
     this.jsplumbchartOption = {
       ...this.jsplumbchartOption,
       steps: this.steps,
-      links: this.links
+      links: this.links,
+      enablePanZoom:false
     };
   },
   beforeCreate() {},
