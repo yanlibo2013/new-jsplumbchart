@@ -1,13 +1,13 @@
-// import plumbGather from "jsplumb";
+import plumbGather from 'jsplumb';
 
 export default function(options) {
-	// let instance = plumbGather.jsPlumb.getInstance({
-	//   Container: options.container
-	// });
-
-	let instance = options.jsPlumb.getInstance({
+	let instance = plumbGather.jsPlumb.getInstance({
 		Container: options.container
 	});
+
+	// let instance = options.jsPlumb.getInstance({
+	// 	Container: options.container
+	// });
 
 	instance.bind('click', function(c) {
 		// instance.deleteConnection(c); //instance
@@ -16,8 +16,8 @@ export default function(options) {
 		// 	//instance.detach(c);
 		// });
 
-		//instance.deleteConnection(c); //instance
-		instance.detach(c);
+		instance.deleteConnection(c); //instance
+		//instance.detach(c);
 	});
 
 	instance.bind('connection', function(c) {

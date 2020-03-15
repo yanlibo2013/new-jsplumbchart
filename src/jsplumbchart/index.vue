@@ -34,19 +34,26 @@ import {
 } from "./lib/flowchart";
 
 export default {
-  name:"jsplumb-chart",
   watch: {
     data(val) {
       this.stepData = this.data.steps;
       this.links = this.data.links;
       this.nodeType = this.data.nodeType;
+      this.operationType = val.operationType;
       this.containerRect = val.containerRect;
+      this.enablePanZoom=val.enablePanZoom;
     },
     stepData(val) {
-      this.$emit("modifyChart", { stepData: val, links: this.links });
+      this.$emit("modifyChart", {
+        stepData: val,
+        links: this.links
+      });
     },
     links(val) {
-      this.$emit("modifyChart", { stepData: this.stepData, links: val });
+      this.$emit("modifyChart", {
+        stepData: this.stepData,
+        links: val
+      });
     }
   },
   props: {
@@ -83,16 +90,21 @@ export default {
   computed: {
     //...mapState([""])
   },
-  mounted() {},
+  mounted() {
+    //this.containerRect = this.jsplumbInstance.getContainer() ? this.jsplumbInstance.getContainer().getBoundingClientRect() : ""
+  },
   beforeCreate() {},
   created() {},
   beforeMount() {},
   beforeUpdate() {},
   updated() {
     this.$nextTick(() => {
-      if (this.containerRect) {
+      if (this.enablePanZoom&&this.containerRect) {
         let lastStep = _.last(this.stepData);
-        let result = this.modifyNodePositon({ x: lastStep.x, y: lastStep.y });
+        let result = this.modifyNodePositon({
+          x: lastStep.x,
+          y: lastStep.y
+        });
         this.stepData = _.map(_.cloneDeep(this.stepData), item => {
           if (lastStep.id == item.id) {
             return {
@@ -115,6 +127,7 @@ export default {
 
       this.drawJsplumbChart(
         {
+          ...this.data,
           jsplumbInstance: this.jsplumbInstance,
           self: this,
           flowData: this.stepData,
@@ -122,15 +135,11 @@ export default {
         },
         () => {
           this.getLinksData();
-          if (this.isPanZoomInit) {
+          if (this.enablePanZoom&&this.isPanZoomInit) {
             panzoom.init(this.jsplumbInstance, false);
             this.isPanZoomInit = false;
 
             if (!this.data.matrix) {
-              return;
-            }
-
-            if(!this.data.matrix){
               return;
             }
 
@@ -162,7 +171,6 @@ export default {
         scale1 = scale;
       } else {
         const matrix = window.getComputedStyle(container).transform;
-        console.log("matrix", matrix);
         scale1 = matrix && matrix.split(", ")[3] * 1;
       }
       instance.setZoom(scale1);
@@ -183,16 +191,8 @@ export default {
       };
     },
     canvasMoveTo(data, fn) {
-      // let matrix = data
-      //   .split("(")[1]
-      //   .split(")")[0]
-      //   .split(",");
-      // let result = {
-      //   x: parseInt(matrix[4]),
-      //   y: parseInt(matrix[5])
-      // };
 
-      fn(JSON.parse(data));
+      fn(data);
     },
     setCavansMatrix(data) {
       let source = _.filter(data, val => {
@@ -216,6 +216,7 @@ export default {
         data.jsplumbInstance,
         data.self,
         data.flowData,
+        data.flowType,
         val => {
           this.stepData = _.map(this.stepData, item => {
             if (item.id == val.id) {
